@@ -19,15 +19,14 @@ load "./test_common.sh"
   [[ "$output" =~ $REGEX ]]
 }
 
-@test "File doesn't exists" {
-  # Create random string, and ensure that the file does not exists
+@test "File doesn't exist" {
+  # Create random string, and ensure that the file does not exist
   tmpFile=$(randomStringForTmpFile)
   until [ ! -f "$tmpFile" ]; do tmpFile=$(randomStringForTmpFile); done
 
   # Execute script
   run $FILE "$tmpFile"
 
-  # Check that the user doesn't exists
   REGEX="(no existe.*$tmpFile)|($tmpFile.*no existe)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     exit 1
@@ -38,7 +37,6 @@ load "./test_common.sh"
   # Execute script
   run $FILE
 
-  # Check that the user doesn't exists
   REGEX="(sintaxis.* practica2_3.sh <nombre_archivo>)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     exit 1
@@ -49,7 +47,6 @@ load "./test_common.sh"
   # Execute script
   run $FILE "a" "b" "c"
 
-  # Check that the user doesn't exists
   REGEX="(sintaxis.* practica2_3.sh <nombre_archivo>)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     exit 1
@@ -64,14 +61,12 @@ load "./test_common.sh"
   # Execute script
   run $FILE "$tmpFile"
 
-  echo "$output" >&2
-  # Check that the user doesn't exists
   REGEX="^-..x..x...$"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     exit 1
   fi
 
-  # Check that the permisison really change
+  # Verify the actual permissions changed
   if [[ "$output" == "$(stat -c \"%A\" ""$tmpFile"")" ]]; then
     exit 1
   fi

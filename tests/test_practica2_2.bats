@@ -19,15 +19,14 @@ load "./test_common.sh"
   [[ "$output" =~ $REGEX ]]
 }
 
-@test "File doesn't exists" {
-  # Create random string, and ensure that the file does not exists
+@test "File doesn't exist" {
+  # Create random string, and ensure that the file does not exist
   tmpFile=$(randomStringForTmpFile)
   until [ ! -f "$tmpFile" ]; do tmpFile=$(randomStringForTmpFile); done
 
   # Execute script
   run $FILE "$tmpFile"
 
-  # Check that the user doesn't exists
   REGEX="(no.*fichero.*$tmpFile)|($tmpFile.*no.*fichero)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     exit 1
@@ -35,7 +34,7 @@ load "./test_common.sh"
 }
 
 @test "File is a directory" {
-  # Create random string, and ensure that the file does not exists
+  # Create random string, and ensure that the file does not exist
   tmpFile=$(randomStringForTmpFile)
   until [ ! -f "$tmpFile" ]; do tmpFile=$(randomStringForTmpFile); done
   until [ ! -d "$tmpFile" ]; do tmpFile=$(randomStringForTmpFile); done
@@ -45,7 +44,6 @@ load "./test_common.sh"
   # Execute script
   run $FILE "$tmpFile"
 
-  # Check that the user doesn't exists
   REGEX="(no.*fichero.*$tmpFile)|($tmpFile.*no.*fichero)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     rmdir "$tmpFile"
@@ -69,7 +67,7 @@ load "./test_common.sh"
     exit 1
   fi
 
-  # Change pagger to cat to ensure that it works
+  # Change pager to cat to ensure that it works
   export PAGE=cat
   export LESS=""
 
@@ -92,8 +90,6 @@ load "./test_common.sh"
   # Execute script
   run $FILE "$tmpFile"
 
-  echo "AGUS $output" >&2
-  # Check that the user doesn't exists
   REGEX="(no.*fichero.*$tmpFile)|($tmpFile.*no.*fichero)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     exit 1
@@ -138,7 +134,7 @@ load "./test_common.sh"
   createFiles 3
   addNoFile
 
-  # Change pagger to cat to ensure that it works
+  # Change pager to cat to ensure that it works
   export PAGE=cat
   export LESS=""
 

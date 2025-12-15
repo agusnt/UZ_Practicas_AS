@@ -27,7 +27,6 @@ load "./test_common.sh"
   # Execute script
   run $FILE <<< "$tmpFile"
 
-  # Check that the user doesn't exists
   REGEX="(no existe.*$tmpFile)|($tmpFile.*no existe)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     exit 1
@@ -45,7 +44,6 @@ load "./test_common.sh"
   # Execute script
   run $FILE <<< "$tmpFile"
 
-  # Check that the user doesn't exists
   REGEX="(no existe.*$tmpFile)|($tmpFile.*no existe)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     exit 1
@@ -58,13 +56,12 @@ load "./test_common.sh"
   # Create random string, and ensure that the file does not exists
   tmpFile=$(createTmpFile)
   
-  # Remove permissiones
+  # Remove permissions
   chmod -rxw "$tmpFile"
 
   # Execute script
   run $FILE <<< "$tmpFile"
 
-  # Check that the user doesn't exists
   REGEX="(.*$tmpFile.*---)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     removeTmpFile "$tmpFile"
@@ -86,7 +83,6 @@ load "./test_common.sh"
   # Execute script
   run $FILE <<< "$tmpFile"
 
-  # Check that the user doesn't exists
   REGEX="(.*$tmpFile.*r--)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     removeTmpFile "$tmpFile"
@@ -108,7 +104,6 @@ load "./test_common.sh"
   # Execute script
   run $FILE <<< "$tmpFile"
 
-  # Check that the user doesn't exists
   REGEX="(.*$tmpFile.*-w-)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     removeTmpFile "$tmpFile"
@@ -130,7 +125,6 @@ load "./test_common.sh"
   # Execute script
   run $FILE <<< "$tmpFile"
 
-  # Check that the user doesn't exists
   REGEX="(.*$tmpFile.*--x)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     removeTmpFile "$tmpFile"
@@ -152,7 +146,6 @@ load "./test_common.sh"
   # Execute script
   run $FILE <<< "$tmpFile"
 
-  # Check that the user doesn't exists
   REGEX="(.*$tmpFile.*rw-)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     removeTmpFile "$tmpFile"
@@ -174,7 +167,6 @@ load "./test_common.sh"
   # Execute script
   run $FILE <<< "$tmpFile"
 
-  # Check that the user doesn't exists
   REGEX="(.*$tmpFile.*r-x)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     removeTmpFile "$tmpFile"
@@ -196,7 +188,6 @@ load "./test_common.sh"
   # Execute script
   run $FILE <<< "$tmpFile"
 
-  # Check that the user doesn't exists
   REGEX="(.*$tmpFile.*-wx)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     removeTmpFile "$tmpFile"
@@ -210,13 +201,12 @@ load "./test_common.sh"
   # Create random string, and ensure that the file does not exists
   tmpFile=$(createTmpFile)
   
-  # Add all permission
+  # Add all permissions
   chmod +rxw "$tmpFile"
 
   # Execute script
   run $FILE <<< "$tmpFile"
 
-  # Check that the user doesn't exists
   REGEX="(.*$tmpFile.*rwx)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     removeTmpFile "$tmpFile"
