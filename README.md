@@ -40,6 +40,13 @@ src
 
 Paquete `bats` y `bash`. En Debian: `sudo apt install bats`, Fedora: `sudo dnf install bats`, Arch: `sudo pacman -S bats`.
 
+## Ejecutar un test
+
+```
+./tests/Pr{2,3,4}/<test>
+```
+
+
 ## Realización de las Prácticas en QEMU-KVM
 
 ### Creación de un Disco Duro
