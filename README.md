@@ -92,7 +92,6 @@ qemu-system-x86_64 \
 
 ```
 qemu-img create -f qcow2 -b <disco_base> -F qcow2 <disco_incremental>
-  -device virtio-net-pci,netdev=net0
 ```
 
 ## FAQs
