@@ -1,4 +1,4 @@
-# UZ Practicas AS Profesores
+# UZ Practicas AS
 
 Repositorio con los tests de la asignatura de Administración de Sistemas de Unizar.
 
