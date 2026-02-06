@@ -1,4 +1,4 @@
-# UZ Practicas AS Profesores
+# UZ Practicas AS
 
 Repositorio con los tests de la asignatura de Administración de Sistemas de Unizar.
 
@@ -44,55 +44,6 @@ Paquete `bats` y `bash`. En Debian: `sudo apt install bats`, Fedora: `sudo dnf i
 
 ```
 ./tests/Pr{2,3,4}/<test>
-```
-
-
-## Realización de las Prácticas en QEMU-KVM
-
-### Creación de un Disco Duro
-
-```
-qemu-img create -f qcow2 <nombre>.qcow2 <tamaño>
-```
-
-### Lanzar una Máquina Virtual para Instalar Debian
-
-```
-qemu-system-x86_64 \
-    -m 1G -cpu max -enable-kvm \
-    -no-reboot \
-    -device virtio-net-pci,netdev=net0 -netdev user,id=net0 \
-    -drive if=virtio,cache=unsafe,file=<nombre_del_disco>.qcow2 \
-    -device ide-cd,drive=cdrom,bootindex=0 \
-    -drive if=none,id=cdrom,format=raw,file=<iso_de_debian>
-```
-
-### Ejecutar una Máquina Virtual
-
-```
-qemu-system-x86_64 \
-    -m 1G -cpu max -enable-kvm \
-    -no-reboot \
-    -device virtio-net-pci,netdev=net0 -netdev user,id=net0 \
-    -drive if=virtio,cache=unsafe,file=<nombre_del_disco>.qcow2
-```
-
-### Ejecutar una Máquina Virtual con una subred
-
-```
-qemu-system-x86_64 \
-  -m 1G -cpu max -enable-kvm \
-  -no-reboot \
-  -drive file=<nombre_del_disco>.qcow2,format=qcow2 \
-  -netdev user,id=net0,net=<red>,dhcpstart=<inicio_del_dhpc> \
-  -device virtio-net-pci,netdev=net0
-```
-
-### Creación de un Disco Incremental
-
-```
-qemu-img create -f qcow2 -b <disco_base> -F qcow2 <disco_incremental>
-  -device virtio-net-pci,netdev=net0
 ```
 
 ## FAQs
