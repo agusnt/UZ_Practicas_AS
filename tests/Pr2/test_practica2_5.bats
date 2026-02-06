@@ -21,14 +21,17 @@ outputError() {
 }
 
 @test "Check the shellbang" {
-  # Read the head
-  run head -n 1 "$FILE"
-  
-  # Ensure that head -n 1 is executed
-  [ "$status" -eq 0 ] 
-
   # Check if the shellbang is right
-  echo check_shellbang
+  run check_shellbang "$FILE"
+  echo "$output"
+  [ "$status" -eq 0 ] 
+}
+
+@test "Check students name" {
+  # Read the head
+  run check_students "$FILE"
+  echo "$output"
+  [ "$status" -eq 0 ] 
 }
 
 @test "Directory doesn't exists" {

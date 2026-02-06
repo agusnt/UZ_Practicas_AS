@@ -25,11 +25,62 @@ BATS_TEST_TIMEOUT=30
 
 # Check shellbang
 check_shellbang() {
-  REGEX='^#!(/usr/bin/env bash|/usr/bin/bash|/bin/bash)$'
-  if [[ "$output" =~ $REGEX ]]; then
+  if [[ ! -f "$1" || ! -s "$1" ]]; then
+    >&2 echo "File does not exist or is empty"
     return 1
+  fi
+  
+  REGEX='^#!(/usr/bin/env bash|/usr/bin/bash|/bin/bash)$'
+  foo=$(head -n 1 "$1")
+  if [[ $foo =~ $REGEX ]]; then
+    return 0
   else
     >&2 echo "The shell bang is not right"
+    return 1
+  fi
+}
+
+check_students() {
+  if [[ ! -f "$1" || ! -s "$1" ]]; then
+    >&2 echo "File does not exist or is empty"
+    return 1
+  fi
+  
+  REGEX='^#!(/usr/bin/env bash|/usr/bin/bash|/bin/bash)$'
+  foo=$(head -n 1 "$1")
+  if [[ $foo =~ $REGEX ]]; then
+    return 0
+  else
+    >&2 echo "The shell bang is not right"
+    return 1
+  fi
+}
+
+check_students() {
+  REGEX='^#.**[0-9][0-9][0-9][0-9][0-9].*[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ -.]+.*[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ -.]+, [MT].*[0-9].*[AB]$'
+  if [[ "$(sed -n "2p" "$1")" =~ $REGEX ]]; then
+    return 0
+  else
+    >&2 echo "Wrong user header! # NIP, Apellidos,  Nombre,  [MT],  [1-5],  [AB]"
+    return 1
+  fi
+}
+
+#####################################################################################
+# Common setup
+setup() {
+  # This function is called at the beginning of each test and prepare the environment
+  dirname "$(realpath "$1")" >/dev/null 2>&1
+  mkdir "$TMP_FOLDER" >/dev/null 2>&1
+
+  # Create a pipe needed for some test
+  mkfifo "$PIPE" >/dev/null 2>&1
+  REGEX='^#[0-9][0-9][0-9][0-9][0-9],[\s][a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s\-\.]+,[\s]*[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s\-\.]+,[\s]*[MT],[\s]*[1-5],[\s]*[AB]$'
+  if [[ "$(sed -n "2p" "$1")" =~ $REGEX ]]; then
+    return 0
+  else
+    >&2 echo "Wrong user header! NIP, Apellidos,  Nombre,  [MT],  [1-5],  [AB]"
+    return 1
   fi
 }
 
