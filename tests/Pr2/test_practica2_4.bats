@@ -36,77 +36,106 @@ outputError() {
 
 @test "Check lowercase letters" {
   input_data=$(printf "%s\n" {a..z})
-  run bash "$FILE" <<< "$input_data"
-
-  [ "$status" -eq 0 ]
 
   local i=0
   # Verify all letters
   for letter in {a..z}; do
+    run bash "$FILE" <<< "$letter"
+
+    [ "$status" -eq 0 ]
+
     local regex="^[[:space:]]*${letter}.*[Ll]etra[[:space:]]*$"
 
-    if [[ ! "${lines[$i]}" =~ $regex ]]; then
-      outputError "$letter" "$letter es una letra" "${lines[$i]}"
+    if [[ ! "${output}" =~ $regex ]]; then
+      outputError "$letter" "$letter es una letra" "${output}"
       return 1
     fi
-    i=$((i + 1))
   done
 }
 @test "Check upercase letters" {
   input_data=$(printf "%s\n" {A..Z})
-  run bash "$FILE" <<< "$input_data"
-
-  [ "$status" -eq 0 ]
 
   local i=0
   # Verify all letters
   for letter in {A..Z}; do
-    local regex="^[[:space:]]*${letter}.*[Ll]etra[[:space:]]*$"
+    run bash "$FILE" <<< "$letter"
+    [ "$status" -eq 0 ]
 
-    if [[ ! "${lines[$i]}" =~ $regex ]]; then
-      outputError "$letter" "$letter es una letra" "${lines[$i]}"
+    local regex="^[[:space:]]*${letter}.*[Ll]etra[[:space:]]*$"
+    if [[ ! "${output}" =~ $regex ]]; then
+      outputError "$letter" "$letter es una letra" "${output}"
       return 1
     fi
-    i=$((i + 1))
   done
 }
 
 @test "Check numbers" {
   input_data=$(printf "%s\n" {0..99})
-  run bash "$FILE" <<< "$input_data"
-
-  [ "$status" -eq 0 ]
 
   local i=0
   # Verify all letters
   for num in {0..99}; do
+    run bash "$FILE" <<< "$num"
+
+    [ "$status" -eq 0 ]
+
     local regex="^[[:space:]]*${num}.*[Nn][úu]mero[[:space:]]*$"
 
-    if [[ ! "${lines[$i]}" =~ $regex ]]; then
-      outputError "$num" "$num es un número" "${lines[$i]}"
+    if [[ ! "${output}" =~ $regex ]]; then
+      outputError "$num" "$num es un número" "${output}"
       return 1
     fi
-    i=$((i + 1))
   done
 }
 
 @test "Check special characters" {
   local charset=('@' '#' '$' '%' '&' '*' '+' '=' '[' ']' '.' ',' ' ')
   input_data=$(printf "%s\n" "${charset[@]}")
-  run bash "$FILE" <<< "$input_data"
-
-  [ "$status" -eq 0 ]
 
   local i=0
   # Verify all letters
   for char in "${charset[@]}"; do
+    run bash "$FILE" <<< "$char"
+
+    [ "$status" -eq 0 ]
+
     local escapedChar="$(printf '%s' "$char" | sed 's/[][\.*^$]/\\&/g')"
     local regex="^[[:space:]]*${escapedChar}.*[Cc]ar[áa]cter.*especial"
 
-    if [[ ! "${lines[$i]}" =~ $regex ]]; then
-      outputError "$escapedChar" "$escapedChar es un cáracter especial" "${lines[$i]}"
+    if [[ ! "${output}" =~ $regex ]]; then
+      outputError "$escapedChar" "$escapedChar es un cáracter especial" "${output}"
       return 1
     fi
-    i=$((i + 1))
   done
+}
+
+@test "Check mix of characters" {
+  run bash "$FILE" <<< "1#a"
+  [ "$status" -eq 0 ]
+  num=1
+  local regex="^[[:space:]]*${num}.*[Nn][úu]mero[[:space:]]*$"
+  if [[ ! "${output}" =~ $regex ]]; then
+    outputError "$num" "$num es un número" "${output}"
+    return 1
+  fi
+
+  run bash "$FILE" <<< "a#2"
+  [ "$status" -eq 0 ]
+  letter=a
+  local regex="^[[:space:]]*${letter}.*[Ll]etra[[:space:]]*$"
+  if [[ ! "${output}" =~ $regex ]]; then
+    outputError "$letter" "$letter es una letra" "${output}"
+    return 1
+  fi
+
+  run bash "$FILE" <<< "#a2"
+  [ "$status" -eq 0 ]
+  char="#"
+  local escapedChar="$(printf '%s' "$char" | sed 's/[][\.*^$]/\\&/g')"
+  local regex="^[[:space:]]*${escapedChar}.*[Cc]ar[áa]cter.*especial"
+  if [[ ! "${output}" =~ $regex ]]; then
+    outputError "$escapedChar" "$escapedChar es un cáracter especial" "${output}"
+    return 1
+  fi
+
 }

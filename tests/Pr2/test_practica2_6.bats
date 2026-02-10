@@ -38,10 +38,15 @@ outputError() {
   numRandomFile=$((10 + "$RANDOM" % 10))
 
   # Create files to copy
-  for _ in $(seq 1 $numRandomFile); do createTmpFile >/dev/null; done
+  for i in $(seq 1 $numRandomFile); do 
+    name=$(createTmpFile)
+    if [ $((i % 2)) -eq 0 ]; then
+      chmod +x $name
+    fi
+  done
 
   # Get the number of files
-  numFiles=$(find "$TMP_FOLDER" -type f 2>/dev/null | wc -l)
+  numFiles=$(find "$TMP_FOLDER" -type f -executable 2>/dev/null | wc -l)
 
   cd "$TMP_FOLDER"
 
@@ -61,10 +66,15 @@ outputError() {
   numRandomFile=$((10 + "$RANDOM" % 10))
 
   # Create files to copy
-  for _ in $(seq 1 $numRandomFile); do createTmpFile >/dev/null; done
+  for i in $(seq 1 $numRandomFile); do 
+    name=$(createTmpFile)
+    if [ $((i % 2)) -eq 0 ]; then
+      chmod +x $name
+    fi
+  done
 
   # Get the number of files
-  numFiles=$(find "$TMP_FOLDER" -type f | wc -l)
+  numFiles=$(find "$TMP_FOLDER" -type f -executable | wc -l)
 
   cd "$TMP_FOLDER"
 
@@ -111,12 +121,19 @@ outputError() {
   mkdir "$HOME"/binUZ0
   numRandomFileExisted=$((10 + "$RANDOM" % 10))
   for i in $(seq 1 $numRandomFileExisted); do touch "$HOME"/binUZ0/"$i"; done
+
   numFiles=$(find "$HOME"/binUZ0 -type f | wc -l)
 
   # Create files to copy
   numRandomFile=$((10 + "$RANDOM" % 10))
-  for _ in $(seq 1 $numRandomFile); do createTmpFile >/dev/null; done
-  numFiles=$(($(find "$TMP_FOLDER" -type f | wc -l) + $numFiles))
+  for i in $(seq 1 $numRandomFile); do 
+    name=$(createTmpFile)
+    if [ $((i % 2)) -eq 0 ]; then
+      chmod +x $name
+    fi
+  done
+
+  numFiles=$(($(find "$TMP_FOLDER" -type f -executable | wc -l) + $numFiles))
 
   cd "$TMP_FOLDER"
   run bash "$FILE"
