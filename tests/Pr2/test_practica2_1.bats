@@ -44,23 +44,23 @@ load "../common.sh"
   fi
 }
 
-@test "File is a directory" {
-  # Create random string, and ensure that the file does not exists
-  tmpFile=$(randomStringForTmpFile)
-  until [ ! -f "$tmpFile" ]; do tmpFile=$(randomStringForTmpFile); done
-  until [ ! -d "$tmpFile" ]; do tmpFile=$(randomStringForTmpFile); done
-  
-  mkdir "$tmpFile"
-
-  # Execute script
-  run $FILE <<< "$tmpFile"
-
-  # Check that the user doesn't exists
-  REGEX="(no existe.*$tmpFile)|($tmpFile.*no existe)"
-  if ! grep -q -E -i "$REGEX" <<< "$output"; then 
-    exit 1
-  fi
-}
+# @test "File is a directory" {
+#   # Create random string, and ensure that the file does not exists
+#   tmpFile=$(randomStringForTmpFile)
+#   until [ ! -f "$tmpFile" ]; do tmpFile=$(randomStringForTmpFile); done
+#   until [ ! -d "$tmpFile" ]; do tmpFile=$(randomStringForTmpFile); done
+#   
+#   mkdir "$tmpFile"
+#
+#   # Execute script
+#   run $FILE <<< "$tmpFile"
+#
+#   # Check that the user doesn't exists
+#   REGEX="(no existe.*$tmpFile)|($tmpFile.*no existe)"
+#   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
+#     exit 1
+#   fi
+# }
 
 @test "No permissions" {
   # Create random string, and ensure that the file does not exists

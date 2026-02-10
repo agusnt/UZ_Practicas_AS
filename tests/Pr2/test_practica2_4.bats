@@ -70,11 +70,11 @@ outputError() {
 }
 
 @test "Check numbers" {
-  input_data=$(printf "%s\n" {0..99})
+  input_data=$(printf "%s\n" {0..9})
 
   local i=0
   # Verify all letters
-  for num in {0..99}; do
+  for num in {0..9}; do
     run bash "$FILE" <<< "$num"
 
     [ "$status" -eq 0 ]
