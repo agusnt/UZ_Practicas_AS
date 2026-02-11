@@ -30,7 +30,7 @@ check_shellbang() {
     return 1
   fi
   
-  REGEX='^#!(/usr/bin/env bash|/usr/bin/bash|/bin/bash)$'
+  REGEX='^#!(/usr/bin/env bash|/usr/bin/bash|/bin/bash)'
   foo=$(head -n 1 "$1")
   if [[ $foo =~ $REGEX ]]; then
     return 0
