@@ -42,6 +42,7 @@ outputError() {
   local regex=".*[[:space:]]+no[[:space:]]+es.*[Dd]irectorio"
 
   if [[ ! "$output" =~ $regex ]]; then
+    >&2 echo "Actual output: $output, expected output: $tmpFile no es un directorio "
     exit
   fi
 }
