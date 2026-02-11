@@ -101,7 +101,6 @@ load "../common.sh"
   # Execute script
   run $FILE "$tmpFile"
 
-  echo "AGUS $output" >&2
   # Check that the user doesn't exists
   REGEX="(no.*fichero.*$tmpFile)|($tmpFile.*no.*fichero)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
