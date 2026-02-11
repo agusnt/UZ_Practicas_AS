@@ -35,6 +35,7 @@ outputError() {
 }
 
 @test "Directory doesn't exists" {
+  tmpFile=$(randomStringForTmpFile)
   until [ ! -d "$tmpFile" ]; do tmpFile=$(randomStringForTmpFile); done
 
   run bash "$FILE" <<< "$tmpFile"
