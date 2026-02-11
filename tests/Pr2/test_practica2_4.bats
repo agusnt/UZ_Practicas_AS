@@ -45,8 +45,7 @@ outputError() {
     [ "$status" -eq 0 ]
 
     local regex="^[[:space:]]*${letter}.*[Ll]etra[[:space:]]*$"
-
-    if [[ ! "${output}" =~ $regex ]]; then
+    if [[ ! "$(tail -n 1 <<< "${output}")" =~ $regex ]]; then
       outputError "$letter" "$letter es una letra" "${output}"
       return 1
     fi
@@ -62,7 +61,7 @@ outputError() {
     [ "$status" -eq 0 ]
 
     local regex="^[[:space:]]*${letter}.*[Ll]etra[[:space:]]*$"
-    if [[ ! "${output}" =~ $regex ]]; then
+    if [[ ! "$(tail -n 1 <<< "${output}")" =~ $regex ]]; then
       outputError "$letter" "$letter es una letra" "${output}"
       return 1
     fi
@@ -81,7 +80,7 @@ outputError() {
 
     local regex="^[[:space:]]*${num}.*[Nn][úu]mero[[:space:]]*$"
 
-    if [[ ! "${output}" =~ $regex ]]; then
+    if [[ ! "$(tail -n 1 <<< "${output}")" =~ $regex ]]; then
       outputError "$num" "$num es un número" "${output}"
       return 1
     fi
@@ -102,7 +101,7 @@ outputError() {
     local escapedChar="$(printf '%s' "$char" | sed 's/[][\.*^$]/\\&/g')"
     local regex="^[[:space:]]*${escapedChar}.*[Cc]ar[áa]cter.*especial"
 
-    if [[ ! "${output}" =~ $regex ]]; then
+    if [[ ! "$(tail -n 1 <<< "${output}")" =~ $regex ]]; then
       outputError "$escapedChar" "$escapedChar es un cáracter especial" "${output}"
       return 1
     fi
@@ -114,7 +113,7 @@ outputError() {
   [ "$status" -eq 0 ]
   num=1
   local regex="^[[:space:]]*${num}.*[Nn][úu]mero[[:space:]]*$"
-  if [[ ! "${output}" =~ $regex ]]; then
+  if [[ ! "$(tail -n 1 <<< "${output}")" =~ $regex ]]; then
     outputError "$num" "$num es un número" "${output}"
     return 1
   fi
@@ -123,7 +122,7 @@ outputError() {
   [ "$status" -eq 0 ]
   letter=a
   local regex="^[[:space:]]*${letter}.*[Ll]etra[[:space:]]*$"
-  if [[ ! "${output}" =~ $regex ]]; then
+  if [[ ! "$(tail -n 1 <<< "${output}")" =~ $regex ]]; then
     outputError "$letter" "$letter es una letra" "${output}"
     return 1
   fi
@@ -133,7 +132,7 @@ outputError() {
   char="#"
   local escapedChar="$(printf '%s' "$char" | sed 's/[][\.*^$]/\\&/g')"
   local regex="^[[:space:]]*${escapedChar}.*[Cc]ar[áa]cter.*especial"
-  if [[ ! "${output}" =~ $regex ]]; then
+  if [[ ! "$(tail -n 1 <<< "${output}")" =~ $regex ]]; then
     outputError "$escapedChar" "$escapedChar es un cáracter especial" "${output}"
     return 1
   fi
