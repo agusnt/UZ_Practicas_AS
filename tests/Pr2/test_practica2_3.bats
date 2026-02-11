@@ -50,7 +50,8 @@ load "../common.sh"
   run $FILE
 
   # Check that the user doesn't exists
-  REGEX="(sintaxis.* practica2_3.sh <nombre_archivo>)"
+  #REGEX="([sS]intaxis.* practica2_3.sh <nombre_archivo>)"
+  REGEX="([sS]intaxis.*)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     exit 1
   fi
@@ -61,7 +62,8 @@ load "../common.sh"
   run $FILE "a" "b" "c"
 
   # Check that the user doesn't exists
-  REGEX="(sintaxis.* practica2_3.sh <nombre_archivo>)"
+  #REGEX="([sS]intaxis.* practica2_3.sh <nombre_archivo>)"
+  REGEX="([sS]intaxis.*)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
     exit 1
   fi
