@@ -12,7 +12,7 @@ load "../common.sh"
 
 outputError() {
   # Generate output error for students
-  echo "Error with input: $1, actual output: $2, expected output: $3"
+  echo "Error with input: $1, actual output: $3, expected output: $2"
 }
 
 @test "Script ($FILE) exists" {
