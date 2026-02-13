@@ -40,6 +40,7 @@ load "../common.sh"
   # Check that the user doesn't exists
   REGEX="(no existe.*$tmpFile)|($tmpFile.*no existe)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
+    >&2 echo "Wrong script's output: $output. Expected output: $tmpFile no existe"
     exit 1
   fi
 }
@@ -75,6 +76,7 @@ load "../common.sh"
   # Check that the user doesn't exists
   REGEX="(.*$tmpFile.*---)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
+    >&2 echo "Wrong script's output: $output. Expected output: ---"
     exit 1
   fi
 
@@ -95,6 +97,7 @@ load "../common.sh"
   # Check that the user doesn't exists
   REGEX="(.*$tmpFile.*r--)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
+    >&2 echo "Wrong script's output: $output. Expected output: Los permisos del archivo $tmpFile son: r--"
     exit 1
   fi
 
@@ -115,6 +118,7 @@ load "../common.sh"
   # Check that the user doesn't exists
   REGEX="(.*$tmpFile.*-w-)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
+    >&2 echo "Wrong script's output: $output. Expected output: Los permisos del archivo $tmpFile son: -w-"
     exit 1
   fi
 
@@ -135,6 +139,7 @@ load "../common.sh"
   # Check that the user doesn't exists
   REGEX="(.*$tmpFile.*--x)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
+    >&2 echo "Wrong script's output: $output. Expected output: Los permisos del archivo $tmpFile son: --x"
     exit 1
   fi
 
@@ -155,6 +160,7 @@ load "../common.sh"
   # Check that the user doesn't exists
   REGEX="(.*$tmpFile.*rw-)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
+    >&2 echo "Wrong script's output: $output. Expected output: Los permisos del archivo $tmpFile son: rw-"
     exit 1
   fi
 
@@ -175,6 +181,7 @@ load "../common.sh"
   # Check that the user doesn't exists
   REGEX="(.*$tmpFile.*r-x)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
+    >&2 echo "Wrong script's output: $output. Expected output: Los permisos del archivo $tmpFile son: r-x"
     exit 1
   fi
 
@@ -195,6 +202,7 @@ load "../common.sh"
   # Check that the user doesn't exists
   REGEX="(.*$tmpFile.*-wx)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
+    >&2 echo "Wrong script's output: $output. Expected output: Los permisos del archivo $tmpFile son: -wx"
     exit 1
   fi
 
@@ -213,6 +221,7 @@ load "../common.sh"
   # Check that the user doesn't exists
   REGEX="(.*$tmpFile.*rwx)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
+    >&2 echo "Wrong script's output: $output. Expected output: Los permisos del archivo $tmpFile son: rwx"
     exit 1
   fi
 

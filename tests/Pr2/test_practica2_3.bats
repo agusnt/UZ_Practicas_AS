@@ -41,6 +41,7 @@ load "../common.sh"
   # Check that the user doesn't exists
   REGEX="(no existe.*$tmpFile)|($tmpFile.*no existe)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
+    >&2 echo "Wrong script's output: $output. Expected output: $tmpFile no existe"
     exit 1
   fi
 }
@@ -53,6 +54,7 @@ load "../common.sh"
   #REGEX="([sS]intaxis.* practica2_3.sh <nombre_archivo>)"
   REGEX="([sS]intaxis.*)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
+    >&2 echo "Wrong script's output: $output. Expected output: Sintaxis practica2_3.sh <nombre_archivo>"
     exit 1
   fi
 }
@@ -65,6 +67,7 @@ load "../common.sh"
   #REGEX="([sS]intaxis.* practica2_3.sh <nombre_archivo>)"
   REGEX="([sS]intaxis.*)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
+    >&2 echo "Wrong script's output: $output. Expected output: Sintaxis practica2_3.sh <nombre_archivo>"
     exit 1
   fi
 }
@@ -81,11 +84,13 @@ load "../common.sh"
   # Check that the user doesn't exists
   REGEX="^-..x..x...$"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
+    >&2 echo "Wrong script's output: $output"
     exit 1
   fi
 
   # Check that the permisison really change
   if [[ "$output" == "$(stat -c \"%A\" ""$tmpFile"")" ]]; then
+    >&2 echo "Permission doesn't change"
     exit 1
   fi
 
