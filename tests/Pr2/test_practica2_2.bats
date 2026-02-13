@@ -41,6 +41,7 @@ load "../common.sh"
   # Check that the user doesn't exists
   REGEX="(no.*fichero.*$tmpFile)|($tmpFile.*no.*fichero)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
+    >&2 echo "Actual output: $output, Expected output: $tmpFile no es un fichero"
     exit 1
   fi
 }
@@ -59,6 +60,7 @@ load "../common.sh"
   # Check that the user doesn't exists
   REGEX="(no.*fichero.*$tmpFile)|($tmpFile.*no.*fichero)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
+    >&2 echo "Actual output: $output, Expected output: $tmpFile no es un fichero"
     rmdir "$tmpFile"
     exit 1
   fi
@@ -104,6 +106,7 @@ load "../common.sh"
   # Check that the user doesn't exists
   REGEX="(no.*fichero.*$tmpFile)|($tmpFile.*no.*fichero)"
   if ! grep -q -E -i "$REGEX" <<< "$output"; then 
+    >&2 echo "Actual output: $output, Expected output: $tmpFile no es un fichero"
     exit 1
   fi
 }
