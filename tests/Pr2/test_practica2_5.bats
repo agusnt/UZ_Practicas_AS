@@ -49,7 +49,7 @@ outputError() {
 }
 
 @test "Check the script" {
-  while True; do
+  while true; do
     dir=$(find "/etc" -maxdepth 3 -type d 2>/dev/null | shuf -n 1)
     run bash "$FILE" <<< "$dir"
 
